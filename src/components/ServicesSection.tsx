@@ -11,12 +11,12 @@ const services = [
     buttonAction: "#formulario",
     buttonType: "internal",
     companies: [
-      { name: "Iberdrola", logo: "⚡" },
-      { name: "Endesa", logo: "🔋" },
-      { name: "Naturgy", logo: "🌿" },
-      { name: "Nobe", logo: "💡" },
+      { name: "Iberdrola", logo: "/Logo_Iberdrola_(2023).svg.png" },
+      { name: "Endesa", logo: "/Logo-Endesa.png" },
+      { name: "Naturgy", logo: "/Naturgy.svg.png" },
+      { name: "Nobe", logo: "/nobe.png" },
       { name: "Wasabi", logo: "🔥" },
-      { name: "Podo", logo: "⭐" }
+      { name: "Podo", logo: "/podo.png" }
     ]
   },
   {
@@ -110,7 +110,17 @@ export default function ServicesSection() {
               <div className="grid grid-cols-2 gap-3 lg:gap-4 mb-6 lg:mb-8">
                 {service.companies.map((company, companyIndex) => (
                   <div key={companyIndex} className={`${service.bgColor} ${service.borderColor} border-2 rounded-2xl p-3 lg:p-4 text-center hover:shadow-md transition-all duration-200 hover:scale-105`}>
-                    <div className="text-2xl lg:text-3xl mb-2">{company.logo}</div>
+                    <div className="h-8 lg:h-10 mb-2 flex items-center justify-center">
+                      {company.logo.startsWith('/') ? (
+                        <img 
+                          src={company.logo} 
+                          alt={`${company.name} logo`}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      ) : (
+                        <div className="text-2xl lg:text-3xl">{company.logo}</div>
+                      )}
+                    </div>
                     <div className="text-gray-800 font-black text-xs lg:text-sm">{company.name}</div>
                   </div>
                 ))}
