@@ -8,6 +8,8 @@ const services = [
     color: "from-blue-500 to-blue-600",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200",
+    buttonAction: "#formulario",
+    buttonType: "internal",
     companies: [
       { name: "Iberdrola", logo: "⚡" },
       { name: "Endesa", logo: "🔋" },
@@ -23,6 +25,8 @@ const services = [
     color: "from-purple-500 to-purple-600",
     bgColor: "bg-purple-50",
     borderColor: "border-purple-200",
+    buttonAction: "https://wasabitel.com",
+    buttonType: "external",
     companies: [
       { name: "Vodafone", logo: "📱" },
       { name: "Movistar", logo: "📞" },
@@ -36,6 +40,8 @@ const services = [
     color: "from-green-500 to-green-600",
     bgColor: "bg-green-50",
     borderColor: "border-green-200",
+    buttonAction: "whatsapp",
+    buttonType: "whatsapp",
     companies: [
       { name: "Adeslas", logo: "🏥" },
       { name: "DKV", logo: "💊" },
@@ -45,6 +51,25 @@ const services = [
   }
 ];
 
+const handleButtonClick = (service: any) => {
+  if (service.buttonType === "whatsapp") {
+    const message = `Hola, estoy interesado en ver los seguros de salud disponibles. 
+
+Me gustaría recibir información sobre:
+- Adeslas
+- DKV  
+- Sanitas
+- Caser
+
+¿Podrían ayudarme con una comparativa personalizada?`;
+    
+    const whatsappUrl = `https://wa.me/34621508300?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  } else if (service.buttonType === "external") {
+    window.open(service.buttonAction, '_blank');
+  }
+  // For internal links, the default href behavior will work
+};
 export default function ServicesSection() {
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
@@ -92,13 +117,27 @@ export default function ServicesSection() {
               </div>
 
               <div className="text-center">
-                <a 
-                  href="#formulario" 
-                  className={`w-full bg-gradient-to-r ${service.color} text-white py-3 lg:py-4 rounded-2xl font-black text-sm lg:text-base hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105`}
-                >
-                  <span>COMPARAR {service.title.toUpperCase()}</span>
-                  <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
-                </a>
+                {service.buttonType === "internal" ? (
+                  <a 
+                    href={service.buttonAction}
+                    className={`w-full bg-gradient-to-r ${service.color} text-white py-3 lg:py-4 rounded-2xl font-black text-sm lg:text-base hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105`}
+                  >
+                    <span>COMPARAR {service.title.toUpperCase()}</span>
+                    <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
+                  </a>
+                ) : (
+                  <button 
+                    onClick={() => handleButtonClick(service)}
+                    className={`w-full bg-gradient-to-r ${service.color} text-white py-3 lg:py-4 rounded-2xl font-black text-sm lg:text-base hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105`}
+                  >
+                    <span>
+                      {service.title === "Salud" ? "VER SEGUROS" : 
+                       service.title === "Telecomunicaciones" ? "IR A WASABITEL" : 
+                       `COMPARAR ${service.title.toUpperCase()}`}
+                    </span>
+                    <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
