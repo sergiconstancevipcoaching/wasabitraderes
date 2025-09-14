@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Lazy load components for better performance
 const Features = lazy(() => import('./components/Features'));
 const ComparisonSection = lazy(() => import('./components/ComparisonSection'));
+const ServicesSection = lazy(() => import('./components/ServicesSection'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const CTA = lazy(() => import('./components/CTA'));
 const ComparisonForm = lazy(() => import('./components/ComparisonForm'));
@@ -35,6 +36,9 @@ const HomePage = () => (
     </Suspense>
     <Suspense fallback={<LoadingSpinner />}>
       <ComparisonSection />
+    </Suspense>
+    <Suspense fallback={<LoadingSpinner />}>
+      <ServicesSection />
     </Suspense>
     <Suspense fallback={<LoadingSpinner />}>
       <Testimonials />
